@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { LoaderPage } from "./lib/LoaderPage/index";
+import { ErrorPage } from "./lib/ErrorPage/index";
 import { get_server_base_url } from "./utils.js";
 
 /**
@@ -15,7 +17,7 @@ import { get_server_base_url } from "./utils.js";
  */
 export const App = ({}) => {
   const [ server_url, set_server_url ] = useState(null);
-  const [ loading_server_url, set_loading_server_url ] = useState(null);
+  const [ loading_server_url, set_loading_server_url ] = useState(true);
 
   useEffect(() => {
     get_server_base_url().then((response) => {
@@ -24,9 +26,17 @@ export const App = ({}) => {
     });
   }, []);
 
-  return (
-    <>
-      <h1>Waves</h1>
-    </>
-  );
+  if(loading_server_url) {
+    return (<LoaderPage/>);
+  } else {
+    if(server_url) {
+      return (
+        <>
+          Waves
+        </>
+      );
+    } else {
+      return (<ErrorPage/>);
+    }
+  }
 }
