@@ -1,0 +1,67 @@
+.loading-animation {
+  background-color:  rgb(39 39 42);
+  border-radius: 50%;
+  position: relative;
+  animation: rotate 1000ms linear forwards infinite;
+}
+
+.loading-animation.small {
+  width: 1.3em;
+  height: 1.3em;
+}
+
+.loading-animation.normal {
+  width: 1.7em;
+  height: 1.7em;
+}
+
+.loading-animation.large {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.loading-animation:after {
+  content: '';
+  background-color: rgb(244 244 245);
+  position: absolute;
+  border-radius: 50%;
+}
+
+.loading-animation.small:after {
+  width: 0.5em;
+  height: 0.5em;
+  top: 0.2em;
+  left: 0.2em;
+}
+
+.loading-animation.normal:after {
+  width: 0.7em;
+  height: 0.7em;
+  top: 0.3em;
+  left: 0.3em;
+}
+
+.loading-animation.large:after {
+  width: 0.9rem;
+  height: 0.9rem;
+  top: 0.4rem;
+  left: 0.4rem;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .loading-animation {
+    background-color: rgb(244 244 245);
+  }
+  .loading-animation:after {
+    background-color: rgb(39 39 42);
+  }
+}
