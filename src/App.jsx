@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import { get_server_base_url } from "./utils.js";
 import { LoaderPage } from "./lib/LoaderPage/index";
 import { ErrorPage } from "./lib/ErrorPage/index";
-import { get_server_base_url } from "./utils.js";
+import { MainPage } from './lib/MainPage/index';
 
 /**
  * Create Application component
@@ -17,6 +18,7 @@ import { get_server_base_url } from "./utils.js";
  */
 export const App = ({}) => {
   const [ server_url, set_server_url ] = useState(null);
+  const [ current_station, set_current_station ] = useState({});
   const [ loading_server_url, set_loading_server_url ] = useState(true);
 
   useEffect(() => {
@@ -32,7 +34,7 @@ export const App = ({}) => {
     if(server_url) {
       return (
         <>
-          Waves
+          <MainPage server_url={server_url} set_current_station={set_current_station} />
         </>
       );
     } else {
