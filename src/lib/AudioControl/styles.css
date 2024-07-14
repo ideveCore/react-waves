@@ -1,0 +1,55 @@
+.overlay-audio-control {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.overlay-audio-control.fade-in {
+  animation: fade 500ms forwards;
+}
+
+.overlay-audio-control.fade-out {
+  animation: fade-reverse 500ms forwards;
+}
+
+.overlay-audio-control.fade-in > main {
+  animation: show-an 500ms forwards;
+}
+
+.overlay-audio-control.fade-out main {
+  animation: show-reverse 500ms forwards;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-reverse {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes show-an {
+  from {
+    right: -50%;
+  }
+  to {
+      right: 0%;
+  }
+}
+
+@keyframes show-reverse {
+  from {
+    right: 0%;
+  }
+  to {
+      right: -50%;
+  }
+}
