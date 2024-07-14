@@ -1,0 +1,13 @@
+.swiper-button-prev:after {
+  color: rgb(165 180 252);
+  transform: scale(0.6);
+}
+
+.swiper-button-next:after {
+  color: rgb(165 180 252);
+  transform: scale(0.6);
+}
+
+.swiper-pagination-bullet {
+  background-color: rgb(165 180 252) !important;
+}
