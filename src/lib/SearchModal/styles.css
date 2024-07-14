@@ -1,0 +1,20 @@
+.overlay-modal {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.fade-in {
+  animation: fade 500ms forwards;
+}
+
+.fade-out {
+  animation: fade 500ms alternate-reverse;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
