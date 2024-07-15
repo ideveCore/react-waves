@@ -48,12 +48,19 @@ export const App = ({}) => {
     if(server_url) {
       return (
         <>
-          <MainPage server_url={server_url} set_current_station={set_current_station} />
-          <AudioControl
-            set_show_audio_control={set_show_audio_control}
-            current_station={current_station}
-            show_audio_control={show_audio_control}
-          />
+          <div
+            className="w-full h-full flex"
+          >
+            <MainPage
+              server_url={server_url}
+              set_current_station={set_current_station}
+            />
+            <AudioControl
+              set_show_audio_control={set_show_audio_control}
+              current_station={current_station}
+              show_audio_control={show_audio_control}
+            />
+          </div>
           <MiniAudioControl
             set_show_audio_control={set_show_audio_control}
             current_station={current_station}

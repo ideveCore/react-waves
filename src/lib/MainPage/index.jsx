@@ -30,7 +30,7 @@ export const MainPage = ({ set_current_station, server_url }) => {
 
   return (
     <>
-      <section className="flex w-full h-full items-center justify-start flex-col gap-10">
+      <section className="flex w-1/2 h-full items-center justify-start flex-col gap-10 flex-1">
         <header className="flex w-full p-2">
           <div className="c-slider rounded-lg p-2 bg-indigo-500 w-full h-44 relative">
             <button
