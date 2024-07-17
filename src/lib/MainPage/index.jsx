@@ -30,7 +30,7 @@ export const MainPage = ({ set_current_station, server_url }) => {
 
   return (
     <>
-      <section className="flex w-1/2 h-full items-center justify-start flex-col gap-10 flex-1">
+      <section className="flex w-2/3 h-full items-center justify-start flex-col gap-10 flex-1 overflow-auto">
         <header className="flex w-full p-2">
           <div className="c-slider rounded-lg p-2 bg-indigo-500 w-full h-44 relative">
             <button
@@ -77,7 +77,7 @@ export const MainPage = ({ set_current_station, server_url }) => {
           </div>
           <StationList
             server_url={`${server_url}/json/stations/topvote/12`}
-            large={true}
+            size="large"
             set_current_station={set_current_station}
           />
           <div
@@ -88,7 +88,7 @@ export const MainPage = ({ set_current_station, server_url }) => {
           </div>
           <StationList
             server_url={`${server_url}/json/stations/topclick/12`}
-            large={true}
+            size="large"
             set_current_station={set_current_station}
           />
           <div
@@ -98,7 +98,7 @@ export const MainPage = ({ set_current_station, server_url }) => {
           </div>
           <StationList
             server_url={`${server_url}/json/stations/lastchange/12`}
-            large={true}
+            size="large"
             set_current_station={set_current_station}
           />
         </main>

@@ -27,26 +27,48 @@ import { start_ripple } from '../../assets/webkit/ripples';
  */
 export const AudioControl = ({ set_show_audio_control, current_station, show_audio_control }) => {
   const overlay = useRef(null);
+  const menu = useRef(null);
+
+  const toggle_menu = ({ mode }) => {
+    if(mode == "hide") {
+      overlay.current.classList.remove("fade-in");
+      overlay.current.classList.add("fade-out");
+      menu.current.classList.remove("fade-in");
+      menu.current.classList.add("fade-out");
+      setTimeout(() => {
+        set_show_audio_control(false);
+      }, 500)
+    } else {
+      overlay.current.classList.remove("fade-out");
+      overlay.current.classList.add("fade-in");
+      menu.current.classList.remove("fade-out");
+      menu.current.classList.add("fade-in");
+    }
+  }
 
   useEffect(() => {
    if(overlay.current) {
-    if(current_station && show_audio_control) {
-      overlay.current.classList.remove("fade-out");
-      overlay.current.classList.add("fade-in");
-    } else {
-      overlay.current.classList.remove("fade-in");
-      overlay.current.classList.add("fade-out");
-    }
+     if(current_station && show_audio_control) {
+       toggle_menu({ mode: "show" });
+     } else {
+       toggle_menu({ mode: "hide" });
+     }
    }
   }, [current_station, show_audio_control]);
 
-  // if(current_station && show_audio_control) {
-  if(current_station && true) {
+  if(current_station && show_audio_control) {
     return (
       <>
+        <div
+          className="w-full h-full overlay-audio-control fixed z-10 flex items-start
+          justify-center p-2 absolute top-0 left-0 right-0 bottom-0 sm:hidden sm:block opacity-0"
+          ref={overlay}
+          onClick={() => toggle_menu({ mode: "hide" })}
+        ></div>
         <main
-          className="sm:sticky top-0 right-0 bottom-0 h-auto w-2/5 gap-10 p-2 z-10 overflow-auto
-          rounded-l-lg bg-zinc-100 dark:bg-zinc-800 absolute"
+          ref={menu}
+          className="sm:sticky w-3/4 top-0 right-0 bottom-0 h-auto sm:w-1/3 gap-10 p-2 z-10 overflow-auto
+          rounded-l-lg bg-zinc-100 dark:bg-zinc-800 fade-in absolute"
         >
           <div
             className="w-full h-64 flex items-center justify-center bg-zinc-200 dark:bg-zinc-700 rounded-lg overflow-hidden"

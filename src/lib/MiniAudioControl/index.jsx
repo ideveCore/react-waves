@@ -45,12 +45,12 @@ export const MiniAudioControl = ({ set_show_audio_control, current_station, show
       <>
         <div
           className="w-full h-16 flex items-center justify-center fixed
-          bottom-0 left-0 right-0 p-2 z-10 overflow-auto rounded-t-lg bg-zinc-100
-          dark:bg-zinc-800 show-in sm:hidden"
+          bottom-0 left-0 right-0 p-1 z-10 overflow-auto rounded-t-lg bg-zinc-100
+          dark:bg-zinc-800 show-in sm:hidden shadow-md"
           ref={mini_audio_control}
         >
           <div
-            className="w-full rounded-lg flex
+            className="w-full h-full rounded-lg flex
             items-center justify-center"
           >
             <div className="flex h-full w-24 rounded-lg overflow-hidden items-center justify-center">

@@ -10,11 +10,11 @@
   animation: fade-reverse 500ms forwards;
 }
 
-.overlay-audio-control.fade-in > main {
+main.fade-in {
   animation: show-an 500ms forwards;
 }
 
-.overlay-audio-control.fade-out main {
+main.fade-out {
   animation: show-reverse 500ms forwards;
 }
 
@@ -50,6 +50,6 @@
     right: 0%;
   }
   to {
-      right: -50%;
+    right: -100%;
   }
 }

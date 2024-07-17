@@ -81,8 +81,8 @@ export const StationList = ({ set_current_station, size, server_url }) => {
                   <IoMusicalNote className="text-3xl"/>
                 }
               </div>
-              <div className="flex w-4/5 h-full w-full rounded-lg overflow-hidden items-center justify-center">
-                <p className="text-xl text-center w-full sm:w-3/5">{item.name}</p>
+              <div className="flex w-4/5 h-full flex items-center justify-center text-ellipsis overflow-hidden text-nowrap">
+                <p className="text-lg text-center w-full sm:w-3/5 text-ellipsis overflow-hidden">{item.name}</p>
               </div>
               <div
                 className="h-full flex w-24 rounded-lg overflow-hidden items-center justify-center"
