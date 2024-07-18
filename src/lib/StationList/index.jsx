@@ -23,7 +23,12 @@ import { Loader } from "../Loader/index";
  * <StationList set_current_station={} size={} server_url={}/>
  *
  */
-export const StationList = ({ set_current_station, size, server_url }) => {
+export const StationList = ({
+  set_show_search_modal,
+  set_current_station,
+  size,
+  server_url
+  }) => {
   const [data, setData] = useState(null);
   const [controller, set_controller] = useState(new AbortController());
 
@@ -91,7 +96,11 @@ export const StationList = ({ set_current_station, size, server_url }) => {
                   className="h-full w-16 flex items-center justify-center
                   bg-neutral-600 rounded-lg bg-zinc-300 dark:bg-zinc-600 wk-rp"
                   onPointerDown={(event) => start_ripple(event)}
-                  onClick={() => set_current_station(item)}
+                  onClick={() => {
+                    set_current_station(item);
+                    if(set_show_search_modal)
+                      set_show_search_modal(false);
+                    }}
                 >
                   <IoPlay />
                 </button>

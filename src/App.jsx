@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { get_server_base_url } from "./utils.js";
 import { LoaderPage } from "./lib/LoaderPage/index";
 import { ErrorPage } from "./lib/ErrorPage/index";
@@ -23,6 +23,7 @@ export const App = ({}) => {
   const [ current_station, set_current_station ] = useState(null);
   const [ loading_server_url, set_loading_server_url ] = useState(true);
   const [show_audio_control, set_show_audio_control] = useState(false);
+  const audio = useRef(null);
 
   useEffect(() => {
     get_server_base_url().then((base_uri) => {
@@ -37,6 +38,8 @@ export const App = ({}) => {
   useEffect(() => {
     if(current_station) {
       set_show_audio_control(true);
+      audio.current.src = current_station.url_resolved;
+      audio.current.play();
     } else {
       set_show_audio_control(false);
     }
@@ -51,6 +54,7 @@ export const App = ({}) => {
           <div
             className="w-full h-full flex"
           >
+            <audio ref={audio}/>
             <MainPage
               server_url={server_url}
               set_current_station={set_current_station}
@@ -59,12 +63,14 @@ export const App = ({}) => {
               set_show_audio_control={set_show_audio_control}
               current_station={current_station}
               show_audio_control={show_audio_control}
+              audio={audio.current}
             />
           </div>
           <MiniAudioControl
             set_show_audio_control={set_show_audio_control}
             current_station={current_station}
             show_audio_control={show_audio_control}
+            audio={audio.current}
           />
         </>
       );

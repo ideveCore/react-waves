@@ -7,6 +7,7 @@ import {
 import {
   IoMusicalNote,
   IoPlay,
+  IoStop,
 } from "react-icons/io5";
 import { start_ripple } from '../../assets/webkit/ripples';
 
@@ -25,7 +26,13 @@ import { start_ripple } from '../../assets/webkit/ripples';
  * <AudioControl set_show_audio_control={} current_station={} show_audio_control={} />
  *
  */
-export const AudioControl = ({ set_show_audio_control, current_station, show_audio_control }) => {
+export const AudioControl = ({
+  set_show_audio_control,
+  current_station,
+  show_audio_control,
+  audio
+  }) => {
+  const [ audio_state, set_audio_state ] = useState(null);
   const overlay = useRef(null);
   const menu = useRef(null);
 
@@ -55,6 +62,17 @@ export const AudioControl = ({ set_show_audio_control, current_station, show_aud
      }
    }
   }, [current_station, show_audio_control]);
+
+  useEffect(() => {
+    if(audio) {
+      audio.addEventListener("play", () => {
+        set_audio_state("playing");
+      });
+      audio.addEventListener("pause", () => {
+        set_audio_state("paused");
+      });
+    }
+  }, [audio]);
 
   if(current_station && show_audio_control) {
     return (
@@ -91,8 +109,13 @@ export const AudioControl = ({ set_show_audio_control, current_station, show_aud
               className="flex items-center justify-center bg-zinc-200
               dark:bg-zinc-700 p-5 rounded-lg wk-rp"
               onPointerDown={(event) => start_ripple(event)}
+              onClick={() => (audio.paused ? audio.play() : audio.pause())}
             >
-              <IoPlay />
+              {audio_state == "paused" ?
+                <IoPlay />
+                :
+                <IoStop />
+              }
             </button>
           </div>
           <div>

@@ -71,7 +71,11 @@ export const SearchModal = ({ set_show_search_modal, set_current_station, server
             </button>
           </header>
           <main className="w-full max-h-full overflow-auto">
-            <StationList server_url={search_url} set_current_station={set_current_station}/>
+            <StationList
+              server_url={search_url}
+              set_current_station={set_current_station}
+              set_show_search_modal={set_show_search_modal}
+            />
           </main>
         </div>
       </div>

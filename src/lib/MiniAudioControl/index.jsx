@@ -1,11 +1,13 @@
 import "./styles.css";
 import {
+  useState,
   useRef,
   useEffect
 } from "react";
 import {
   IoMusicalNote,
   IoPlay,
+  IoStop,
 } from "react-icons/io5";
 import { start_ripple } from '../../assets/webkit/ripples';
 
@@ -24,7 +26,13 @@ import { start_ripple } from '../../assets/webkit/ripples';
  * <MiniAudioControl set_show_audio_control={} current_station={} show_audio_control={} />
  *
  */
-export const MiniAudioControl = ({ set_show_audio_control, current_station, show_audio_control, }) => {
+export const MiniAudioControl = ({
+  set_show_audio_control,
+  current_station,
+  show_audio_control,
+  audio,
+  }) => {
+  const [ audio_state, set_audio_state ] = useState(null);
   const mini_audio_control = useRef(null);
 
   useEffect(() => {
@@ -39,15 +47,26 @@ export const MiniAudioControl = ({ set_show_audio_control, current_station, show
    }
   }, [current_station, show_audio_control]);
 
+  useEffect(() => {
+    if(audio) {
+      audio.addEventListener("play", () => {
+        set_audio_state("playing");
+      });
+      audio.addEventListener("pause", () => {
+        set_audio_state("paused");
+      });
+    }
+  }, [audio]);
 
   if(current_station && !show_audio_control) {
     return (
       <>
         <div
           className="w-full h-16 flex items-center justify-center fixed
-          bottom-0 left-0 right-0 p-1 z-10 overflow-auto rounded-t-lg bg-zinc-100
+          bottom-0 left-0 right-0 p-2 z-10 overflow-auto rounded-t-lg bg-zinc-100
           dark:bg-zinc-800 show-in sm:hidden shadow-md"
           ref={mini_audio_control}
+          onClick={() => set_show_audio_control(true)}
         >
           <div
             className="w-full h-full rounded-lg flex
@@ -73,8 +92,16 @@ export const MiniAudioControl = ({ set_show_audio_control, current_station, show
                 className="h-full w-16 flex items-center justify-center
                 bg-neutral-600 rounded-lg bg-zinc-300 dark:bg-zinc-600 wk-rp p-4"
                 onPointerDown={(event) => start_ripple(event)}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  (audio.paused ? audio.play() : audio.pause());
+                }}
               >
-                <IoPlay />
+                {audio_state == "paused" ?
+                  <IoPlay />
+                  :
+                  <IoStop />
+                }
               </button>
             </div>
           </div>
