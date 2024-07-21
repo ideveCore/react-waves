@@ -24,7 +24,7 @@ export const App = ({}) => {
   const [ current_station, set_current_station ] = useState(null);
   const [ loading_server_url, set_loading_server_url ] = useState(true);
   const [show_audio_control, set_show_audio_control] = useState(false);
-  const [ favicon, set_favicon ] = useState("/icons/favicon.ico");
+  const [ favicon, set_favicon ] = useState("/react-waves/dist/icons/favicon.ico");
   const audio = useRef(null);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export const App = ({}) => {
       if(current_station.favicon) {
         set_favicon(current_station.favicon);
       } else {
-        set_favicon("/icons/favicon.ico");
+        set_favicon("/react-waves/dist/icons/favicon.ico");
       }
       document.title = current_station.name;
     } else {
