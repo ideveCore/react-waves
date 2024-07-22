@@ -18,25 +18,25 @@ export default defineConfig({
         background_color: '#ffffff',
         icons: [
           {
-            src: '/react-waves/dist/icons/pwa-192x192.png',
+            src: '/icons/pwa-192x192.png',
             sizes: '192x192',
             type: 'image/png'
           },
           {
-            src: '/react-waves/dist/icons/pwa-512x512.png',
+            src: '/icons/pwa-512x512.png',
             sizes: '512x512',
             type: 'image/png'
           },
         ],
         screenshots: [
           {
-            src: "/react-waves/dist/screenshots/01.png",
+            src: "/screenshots/01.png",
             typy: "image/png",
             sizes: "540x720",
             form_factor: "narrow"
           },
           {
-            src: "/react-waves/dist/screenshots/02.png",
+            src: "/screenshots/02.png",
             typy: "image/png",
             sizes: "720x540",
             form_factor: "wide"
