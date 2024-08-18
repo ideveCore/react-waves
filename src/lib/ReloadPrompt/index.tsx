@@ -7,10 +7,10 @@ export const ReloadPrompt: React.FC = () => {
     needRefresh: [needRefresh, setNeedRefresh],
     updateServiceWorker,
   } = useRegisterSW({
-    onRegistered(r: string) {
+    onRegistered(r: any) {
       console.log("SW Registered: " + r);
     },
-    onRegisterError(error: string) {
+    onRegisterError(error: any) {
       console.log("SW registration error", error);
     },
   });

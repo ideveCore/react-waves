@@ -6,7 +6,7 @@ import { ErrorPage } from "./lib/ErrorPage/index";
 import { MainPage } from "./lib/MainPage/index";
 import { AudioControl } from "./lib/AudioControl/index";
 import { MiniAudioControl } from "./lib/MiniAudioControl/index";
-import { Station } from "./types";
+import { Station } from "./types/types";
 
 export const App = () => {
   const [server_url, set_server_url] = useState("");
@@ -68,7 +68,7 @@ export const App = () => {
             set_show_audio_control={set_show_audio_control}
             current_station={current_station}
             show_audio_control={show_audio_control}
-            audio={audio.current}
+            audio={audio.current!}
           />
         </>
       );

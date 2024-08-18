@@ -8,7 +8,7 @@ interface MiniAudioControlProps {
   set_show_audio_control(show: boolean): void;
   current_station: Station | null;
   show_audio_control: boolean;
-  audio: HTMLAudioElement | null;
+  audio: HTMLAudioElement;
 }
 
 export const MiniAudioControl: React.FC<MiniAudioControlProps> = ({
