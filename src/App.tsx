@@ -3,46 +3,37 @@ import Favicon from "react-favicon";
 import { get_server_base_url } from "./utils.js";
 import { LoaderPage } from "./lib/LoaderPage/index";
 import { ErrorPage } from "./lib/ErrorPage/index";
-import { MainPage } from './lib/MainPage/index';
+import { MainPage } from "./lib/MainPage/index";
 import { AudioControl } from "./lib/AudioControl/index";
 import { MiniAudioControl } from "./lib/MiniAudioControl/index";
+import { Station } from "./types";
 
-/**
- * Create Application component
- *
- * @component
- * @param {Object} props - The component accepts
- * @returns {JSX.Element} The rendered component.
- *
- * @example
- * // Render a App component
- * <App/>
- *
- */
-export const App = ({}) => {
-  const [ server_url, set_server_url ] = useState(null);
-  const [ current_station, set_current_station ] = useState(null);
-  const [ loading_server_url, set_loading_server_url ] = useState(true);
+export const App = () => {
+  const [server_url, set_server_url] = useState("");
+  const [current_station, set_current_station] = useState<Station | null>(null);
+  const [loading_server_url, set_loading_server_url] = useState(true);
   const [show_audio_control, set_show_audio_control] = useState(false);
-  const [ favicon, set_favicon ] = useState("./icons/favicon.ico");
-  const audio = useRef(null);
+  const [favicon, set_favicon] = useState("./icons/favicon.ico");
+  const audio = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    get_server_base_url().then((base_uri) => {
-      set_server_url(base_uri);
-      set_loading_server_url(false);
-    }).catch((error) => {
-      set_server_url(base_uri);
-      set_loading_server_url(false);
-    });
+    get_server_base_url()
+      .then((base_uri: string) => {
+        set_server_url(base_uri);
+        set_loading_server_url(false);
+      })
+      .catch(() => {
+        set_server_url("");
+        set_loading_server_url(false);
+      });
   }, []);
 
   useEffect(() => {
-    if(current_station) {
+    if (current_station && audio.current) {
       set_show_audio_control(true);
       audio.current.src = current_station.url_resolved;
       audio.current.play();
-      if(current_station.favicon) {
+      if (current_station.favicon) {
         set_favicon(current_station.favicon);
       } else {
         set_favicon("./icons/favicon.ico");
@@ -53,17 +44,15 @@ export const App = ({}) => {
     }
   }, [current_station]);
 
-  if(loading_server_url) {
-    return (<LoaderPage/>);
+  if (loading_server_url) {
+    return <LoaderPage />;
   } else {
-    if(server_url) {
+    if (server_url) {
       return (
         <>
           <Favicon url={favicon} />
-          <div
-            className="w-full h-full flex"
-          >
-            <audio ref={audio}/>
+          <div className="w-full h-full flex">
+            <audio ref={audio} />
             <MainPage
               server_url={server_url}
               set_current_station={set_current_station}
@@ -84,7 +73,7 @@ export const App = ({}) => {
         </>
       );
     } else {
-      return (<ErrorPage/>);
+      return <ErrorPage />;
     }
   }
-}
+};

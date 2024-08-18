@@ -2,28 +2,24 @@ import "./styles.css";
 import { StationList } from "../StationList/index";
 import { useState, useRef } from "react";
 import { IoClose } from "react-icons/io5";
-import { start_ripple } from '../../assets/webkit/ripples';
+import { start_ripple } from "../../assets/webkit/ripples";
+import { Station } from "../../types/types";
 
-/**
- * Create SearchModal component
- *
- * @component
- * @param {Object} props - The props of the component
- * @param {Function} set_show_search_modal - Switch search modal visibility
- * @param {Function} set_current_station - Set the current station
- * @param {String} server_url - The sserver url
- * @returns {JSX.Element} The rendered component.
- *
- * @example
- * // Render a SearchModal component
- * <SearchModal set_show_search_modal={set_show_search_modal} server_url={server_url}/>
- *
- */
-export const SearchModal = ({ set_show_search_modal, set_current_station, server_url }) => {
-  const [search_url, set_search_url] = useState("");
-  const [search_type, set_search_type] = useState("name");
-  const input_search = useRef(0);
-  const overlay_ref = useRef(null);
+interface SearchModalProps {
+  set_show_search_modal(show: boolean): void;
+  set_current_station(station: Station): void;
+  server_url: string;
+}
+
+export const SearchModal: React.FC<SearchModalProps> = ({
+  set_show_search_modal,
+  set_current_station,
+  server_url,
+}) => {
+  const [search_url, set_search_url] = useState<string>("");
+  const [search_type, set_search_type] = useState<string>("name");
+  const input_search = useRef<HTMLInputElement>(null);
+  const overlay_ref = useRef<HTMLDivElement>(null);
 
   return (
     <>
@@ -43,18 +39,35 @@ export const SearchModal = ({ set_show_search_modal, set_current_station, server
                 placeholder="O que você deseja ouvir?"
                 className="w-2/3 rounded-full p-3 bg-zinc-200 dark:bg-zinc-700"
                 ref={input_search}
-                onInput={({ target }) => (target.value.trim() ? set_search_url(encodeURI(`${server_url}/json/stations/search?${search_type}=${target.value.trim()}`)) : set_search_url(""))}
+                onInput={(event: any) => {
+                  const value = event.target.value.trim();
+                  if (value) {
+                    set_search_url(
+                      encodeURI(
+                        `${server_url}/json/stations/search?${search_type}=${event.target.value.trim()}`,
+                      ),
+                    );
+                  } else {
+                    set_search_url("");
+                  }
+                }}
               />
               <select
                 className="w-1/3 rounded-full p-3 bg-zinc-200 dark:bg-zinc-700"
                 onChange={({ target }) => {
                   set_search_type(target.value);
-                  set_search_url(
-                    encodeURI(`${server_url}/json/stations/search?${target.value}=${input_search.current.value.trim()}`)
-                  );
+                  if (input_search.current) {
+                    set_search_url(
+                      encodeURI(
+                        `${server_url}/json/stations/search?${target.value}=${input_search.current.value.trim()}`,
+                      ),
+                    );
+                  }
                 }}
-                >
-                <option value="name" selected>Nome</option>
+              >
+                <option value="name" selected>
+                  Nome
+                </option>
                 <option value="language">Linguagem</option>
                 <option value="country">País</option>
               </select>
@@ -62,7 +75,7 @@ export const SearchModal = ({ set_show_search_modal, set_current_station, server
             <button
               className="w-10 h-10 flex items-center justify-center rounded-full
               bg-zinc-200 dark:bg-zinc-700 wk-rp"
-              onPointerDown={(event) => start_ripple(event)}
+              onPointerDown={(event: any) => start_ripple(event)}
               onClick={() => {
                 set_show_search_modal(false);
               }}
@@ -72,6 +85,7 @@ export const SearchModal = ({ set_show_search_modal, set_current_station, server
           </header>
           <main className="w-full max-h-full overflow-auto">
             <StationList
+              size="normal"
               server_url={search_url}
               set_current_station={set_current_station}
               set_show_search_modal={set_show_search_modal}
@@ -81,4 +95,4 @@ export const SearchModal = ({ set_show_search_modal, set_current_station, server
       </div>
     </>
   );
-}
+};
