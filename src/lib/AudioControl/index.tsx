@@ -144,7 +144,7 @@ export const AudioControl: React.FC<AudioControlProps> = ({
                 flex items-center justify-between text-base overflow-auto"
               >
                 <p>Reprodução</p>
-                <a href={current_station.url_resolved} target="_blank">
+                <a href={current_station.url_resolved} target="_blank" rel="noreferrer">
                   {current_station.name}
                 </a>
               </li>

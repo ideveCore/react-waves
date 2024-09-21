@@ -57,7 +57,7 @@ export const MainPage: React.FC<MainPageProps> = ({
                     href="https://www.radio-browser.info/"
                     target="_blank"
                     className="bg-indigo-400 text-white p-2 px-4 rounded-full wk-rp light text-lg"
-                    onPointerDown={(event) => start_ripple(event)}
+                    onPointerDown={(event) => start_ripple(event)} rel="noreferrer"
                   >
                     Abrir site
                   </a>

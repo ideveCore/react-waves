@@ -1,6 +1,6 @@
 let ripple_timeout = 0;
 let ripple_end = false;
-let element_data = {
+const element_data = {
   size: 0,
   color: "",
   transition: 200,
